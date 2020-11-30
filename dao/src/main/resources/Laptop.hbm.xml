@@ -1,0 +1,47 @@
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
+    <class name="hu.maszeksolutions.LaptopRegistry.model.Laptop" table="Laptop">
+        <id name="serialNumber" column="serial_number" type="string"/>
+        <property name="manufacturer" column="manufacturer">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">hu.maszeksolutions.LaptopRegistry.model.Manufacturer</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+        <property name="name" column="name" type="string"/>
+        <property name="color" column="color">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">hu.maszeksolutions.LaptopRegistry.model.Color</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+        <property name="screenSize" column="screen_size" type="double"/>
+        <property name="panelType" column="panel_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">hu.maszeksolutions.LaptopRegistry.model.PanelType</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+        <property name="resolutionX" column="resolutionX" type="int"/>
+        <property name="resolutionY" column="resolutionY" type="int"/>
+        <property name="refreshRate" column="refresh_rate" type="int"/>
+        <property name="cpu" column="cpu" type="string"/>
+        <property name="memoryType" column="memory_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">hu.maszeksolutions.LaptopRegistry.model.MemoryType</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+        <property name="memorySize" column="memory_size" type="int"/>
+        <property name="gpu" column="gpu" type="string"/>
+        <property name="storageType" column="storage_type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">hu.maszeksolutions.LaptopRegistry.model.StorageType</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+        <property name="storageSize" column="storage_size" type="int"/>
+        <property name="opticalDrive" column="optical_drive" type="boolean"/>
+        <property name="numberOfUSBPorts" column="number_of_usb_ports" type="int"/>
+        <property name="manufactureDate" column="manufacture_date" type="LocalDate"/>
+    </class>
+</hibernate-mapping>
