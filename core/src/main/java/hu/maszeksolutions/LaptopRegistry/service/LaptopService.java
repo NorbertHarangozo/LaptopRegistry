@@ -16,4 +16,6 @@ public interface LaptopService
     Collection<Laptop> getLaptopsByColor(Color color);
     Collection<Laptop> getLaptopsByManufacturer(Manufacturer manufacturer);
     Collection<Laptop> getPremiumLaptops();
+    int averageMemorySize();
+    double averageUSBPortCount();
 }
