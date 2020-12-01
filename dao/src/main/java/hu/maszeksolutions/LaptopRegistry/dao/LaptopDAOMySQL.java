@@ -1,5 +1,7 @@
 package hu.maszeksolutions.LaptopRegistry.dao;
 
+import hu.maszeksolutions.LaptopRegistry.exceptions.LaptopAlreadyExists;
+import hu.maszeksolutions.LaptopRegistry.exceptions.LaptopNotFound;
 import hu.maszeksolutions.LaptopRegistry.model.Color;
 import hu.maszeksolutions.LaptopRegistry.model.Laptop;
 import hu.maszeksolutions.LaptopRegistry.model.Manufacturer;
@@ -30,21 +32,36 @@ public class LaptopDAOMySQL implements LaptopDAO
     }
 
     @Override
-    public void createLaptop(Laptop laptop)
+    public void createLaptop(Laptop laptop) throws LaptopAlreadyExists
     {
         Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.save(laptop);
-        tx.commit();
+        Laptop l = null;
+
+        try
+        {
+            l = readLaptop(laptop.getSerialNumber());
+        }
+        catch (LaptopNotFound laptopNotFound)
+        {
+            Transaction tx = session.beginTransaction();
+            session.save(laptop);
+            tx.commit();
+        }
+
         session.close();
+
+        if (l != null)
+            throw new LaptopAlreadyExists(laptop.getSerialNumber());
     }
 
     @Override
-    public Laptop readLaptop(String serialNumber)
-    {
+    public Laptop readLaptop(String serialNumber) throws LaptopNotFound {
         Session session = factory.openSession();
         Laptop result = session.get(Laptop.class, serialNumber);
         session.close();
+
+        if (result == null)
+            throw new LaptopNotFound(serialNumber);
 
         return result;
     }
@@ -60,9 +77,13 @@ public class LaptopDAOMySQL implements LaptopDAO
     }
 
     @Override
-    public void updateLaptop(Laptop laptop)
+    public void updateLaptop(Laptop laptop) throws LaptopNotFound
     {
         Session session = factory.openSession();
+
+        if (readLaptop(laptop.getSerialNumber()) == null)
+            throw new LaptopNotFound(laptop.getSerialNumber());
+
         Transaction tx = session.beginTransaction();
         session.update(laptop);
         tx.commit();
@@ -70,9 +91,13 @@ public class LaptopDAOMySQL implements LaptopDAO
     }
 
     @Override
-    public void deleteLaptop(Laptop laptop)
+    public void deleteLaptop(Laptop laptop) throws LaptopNotFound
     {
         Session session = factory.openSession();
+
+        if (readLaptop(laptop.getSerialNumber()) == null)
+            throw new LaptopNotFound(laptop.getSerialNumber());
+
         Transaction tx = session.beginTransaction();
         session.delete(laptop);
         tx.commit();

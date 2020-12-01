@@ -17,8 +17,7 @@ public class LaptopDAOMySQLTest
 
     @Test
     public void CreateLaptopTest() throws InvalidManufactureDate, InvalidGPU, InvalidCPU, InvalidMemorySize,
-            InvalidScreenSize, InvalidRefreshRate, InvalidUSBPortCount, InvalidResolution, InvalidStorageSize, InvalidName
-    {
+            InvalidScreenSize, InvalidRefreshRate, InvalidUSBPortCount, InvalidResolution, InvalidStorageSize, InvalidName, LaptopNotFound, LaptopAlreadyExists {
         LaptopDAO dao = new LaptopDAOMySQL();
         Laptop laptop = DummyLaptop();
         dao.createLaptop(laptop);
@@ -27,8 +26,7 @@ public class LaptopDAOMySQLTest
 
     @Test
     public void ReadLaptopTest() throws InvalidManufactureDate, InvalidGPU, InvalidCPU, InvalidMemorySize,
-            InvalidScreenSize, InvalidRefreshRate, InvalidUSBPortCount, InvalidResolution, InvalidStorageSize, InvalidName
-    {
+            InvalidScreenSize, InvalidRefreshRate, InvalidUSBPortCount, InvalidResolution, InvalidStorageSize, InvalidName, LaptopNotFound, LaptopAlreadyExists {
         LaptopDAO dao = new LaptopDAOMySQL();
         Laptop laptop = DummyLaptop();
         dao.createLaptop(laptop);
@@ -44,8 +42,7 @@ public class LaptopDAOMySQLTest
 
     @Test
     public void UpdateLaptopTest() throws InvalidMemorySize, InvalidManufactureDate, InvalidGPU, InvalidCPU,
-            InvalidScreenSize, InvalidRefreshRate, InvalidUSBPortCount, InvalidResolution, InvalidStorageSize, InvalidName
-    {
+            InvalidScreenSize, InvalidRefreshRate, InvalidUSBPortCount, InvalidResolution, InvalidStorageSize, InvalidName, LaptopNotFound, LaptopAlreadyExists {
         LaptopDAO dao = new LaptopDAOMySQL();
         Laptop laptop = DummyLaptop();
         dao.createLaptop(laptop);
@@ -57,8 +54,7 @@ public class LaptopDAOMySQLTest
 
     @Test
     public void DeleteLaptopTest() throws InvalidManufactureDate, InvalidGPU, InvalidCPU, InvalidMemorySize,
-            InvalidScreenSize, InvalidRefreshRate, InvalidUSBPortCount, InvalidResolution, InvalidStorageSize, InvalidName
-    {
+            InvalidScreenSize, InvalidRefreshRate, InvalidUSBPortCount, InvalidResolution, InvalidStorageSize, InvalidName, LaptopAlreadyExists, LaptopNotFound {
         LaptopDAO dao = new LaptopDAOMySQL();
         Laptop laptop = DummyLaptop();
         dao.createLaptop(laptop);
