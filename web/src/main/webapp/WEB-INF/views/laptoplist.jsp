@@ -22,7 +22,7 @@
                 </tr>
                 <c:forEach items="${laptops}" var="laptop">
                     <tr>
-                        <td>${laptop.serialNumber}</td><td>${laptop.manufacturer}</td><td>${laptop.name}</td><td>${laptop.color}</td>
+                        <td><a href="${pageContext.request.contextPath}/Laptop/${laptop.serialNumber}">${laptop.serialNumber}</a></td><td>${laptop.manufacturer}</td><td>${laptop.name}</td><td>${laptop.color}</td>
                         <td>${laptop.screenSize}"</td><td>${laptop.resolutionX}x${laptop.resolutionY}</td><td>${laptop.memorySize} MB</td><td>${laptop.storageSize} GB</td>
                     </tr>
                 </c:forEach>
