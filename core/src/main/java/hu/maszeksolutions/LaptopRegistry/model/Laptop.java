@@ -1,6 +1,7 @@
 package hu.maszeksolutions.LaptopRegistry.model;
 
 import hu.maszeksolutions.LaptopRegistry.exceptions.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -24,6 +25,7 @@ public class Laptop
     private int storageSize;
     private boolean opticalDrive;
     private int numberOfUSBPorts;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate manufactureDate;
 
     public Laptop()
@@ -216,7 +218,7 @@ public class Laptop
         return manufactureDate;
     }
 
-    public void setManufactureDate(LocalDate manufactureDate) throws InvalidManufactureDate
+    public void setManufactureDate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate manufactureDate) throws InvalidManufactureDate
     {
         if (manufactureDate.isBefore(LocalDate.of(2000, 1, 1)))
             throw new InvalidManufactureDate("Laptops manufactured before the year 2000 are not supported. The one you've entered was manufactured at: " +manufactureDate);
