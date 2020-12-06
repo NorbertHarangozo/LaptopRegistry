@@ -14,6 +14,11 @@
 </head>
 <body>
     <div style="margin: auto; max-width: 1200px;">
+        <div style="text-align: center; margin: 15px;">
+            <a href="${pageContext.request.contextPath}/NewLaptop">
+                <button class="btn btn-success btn-lg">Add new laptop</button>
+            </a>
+        </div>
         <c:if test="${!empty laptops}">
             <table class="table table-bordered table-hover table-striped">
                 <tr>
