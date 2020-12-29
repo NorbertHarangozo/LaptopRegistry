@@ -57,6 +57,7 @@ public class LaptopController
     @GetMapping(value = "NewLaptop")
     public String addLaptopForm(Model model)
     {
+        model.addAttribute("method", "NewLaptop");
         model.addAttribute("colors", Color.values());
         model.addAttribute("manufacturers", Manufacturer.values());
         model.addAttribute("memoryTypes", MemoryType.values());
@@ -89,5 +90,27 @@ public class LaptopController
         model.addAttribute("errorMessage", errorMessage);
 
         return "error.jsp";
+    }
+
+    @GetMapping(value = "UpdateLaptop/{serialNumber}")
+    public String updateLaptopForm(@PathVariable String serialNumber, Model model) throws LaptopNotFound
+    {
+        model.addAttribute("method", "UpdateLaptop");
+        model.addAttribute("laptop", service.getLaptop(serialNumber));
+        model.addAttribute("colors", Color.values());
+        model.addAttribute("manufacturers", Manufacturer.values());
+        model.addAttribute("memoryTypes", MemoryType.values());
+        model.addAttribute("panelTypes", PanelType.values());
+        model.addAttribute("storageTypes", StorageType.values());
+
+        return "laptopForm.jsp";
+    }
+
+    @PostMapping(value = "UpdateLaptop/{serialNumber}")
+    public String updateLaptop(@ModelAttribute("laptop") Laptop laptop) throws LaptopNotFound
+    {
+        service.updateLaptop(laptop);
+
+        return "redirect:/Laptop/" + laptop.getSerialNumber();
     }
 }

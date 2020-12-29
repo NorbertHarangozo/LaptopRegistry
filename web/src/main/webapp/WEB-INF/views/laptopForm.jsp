@@ -5,16 +5,22 @@
   Time: 16:41
   To change this template use File | Settings | File Templates.
 --%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
-    <title>New laptop</title>
+    <c:if test="${method == 'NewLaptop'}">
+        <title>New laptop</title>
+    </c:if>
+    <c:if test="${method == 'UpdateLaptop'}">
+        <title>Update laptop</title>
+    </c:if>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
     <div style="margin: auto; max-width: 800px;">
-        <f:form method="post" action="NewLaptop" modelAttribute="laptop">
+        <f:form method="post" action="" modelAttribute="laptop">
             <table class="table table-bordered table-striped">
                 <tr>
                     <td><f:label path="manufacturer">Manufacturer</f:label></td>
@@ -74,8 +80,13 @@
                 <tr><td><f:label path="manufactureDate">Manufacturing date</f:label></td><td><f:input path="manufactureDate" type="date" required="required"/></td></tr>
             </table>
             <div style="text-align: center;">
-                <input type="submit" class="btn btn-primary btn-lg" value="Add new laptop"/>
-                <a href="${pageContext.request.contextPath}/Laptops"><button class="btn btn-primary btn-lg">Go back</button></a>
+                <c:if test="${method == 'NewLaptop'}">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Add new laptop"/>
+                </c:if>
+                <c:if test="${method == 'UpdateLaptop'}">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Save changes"/>
+                </c:if>
+                <button class="btn btn-primary btn-lg" onclick="window.history.back()">Go back</button>
             </div>
         </f:form>
     </div>
