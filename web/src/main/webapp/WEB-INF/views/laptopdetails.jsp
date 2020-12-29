@@ -40,6 +40,7 @@
         </table>
         <div style="text-align: center;">
             <a href="${pageContext.request.contextPath}/UpdateLaptop/${laptop.serialNumber}"><button class="btn btn-primary btn-lg">Change details</button></a>
+            <a href="${pageContext.request.contextPath}/DeleteLaptop/${laptop.serialNumber}"><button class="btn btn-danger btn-lg">Delete laptop</button></a>
             <a href="${pageContext.request.contextPath}/Laptops"><button class="btn btn-primary btn-lg">Go back</button></a>
         </div>
     </div>

@@ -113,4 +113,12 @@ public class LaptopController
 
         return "redirect:/Laptop/" + laptop.getSerialNumber();
     }
+
+    @GetMapping(value = "DeleteLaptop/{serialNumber}")
+    public String deleteLaptop(@ModelAttribute("laptop") Laptop laptop) throws LaptopNotFound
+    {
+        service.removeLaptop(laptop);
+
+        return "redirect:/Laptops";
+    }
 }
