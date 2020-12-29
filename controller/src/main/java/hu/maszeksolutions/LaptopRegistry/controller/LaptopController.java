@@ -6,12 +6,15 @@ import hu.maszeksolutions.LaptopRegistry.model.*;
 import hu.maszeksolutions.LaptopRegistry.service.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class LaptopController
@@ -41,6 +44,16 @@ public class LaptopController
         return "laptopdetails.jsp";
     }
 
+    @ExceptionHandler(LaptopNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String unknownLaptopId(Model model, LaptopNotFound ex)
+    {
+        String errorMessage = "No laptop with the following serial number can be found: " + ex.getMessage();
+        model.addAttribute("errorMessage", errorMessage);
+
+        return "error.jsp";
+    }
+
     @GetMapping(value = "NewLaptop")
     public String addLaptopForm(Model model)
     {
@@ -58,5 +71,23 @@ public class LaptopController
         service.addLaptop(laptop);
 
         return "redirect:Laptop/" + laptop.getSerialNumber();
+    }
+
+    @ExceptionHandler(BindException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String invalidData(Model model, BindException ex)
+    {
+        List<FieldError> errors = ex.getFieldErrors();
+        List<String> fields = new ArrayList<>();
+
+        for (FieldError error: errors)
+        {
+            fields.add(error.getField());
+        }
+
+        String errorMessage = "The value of the following fields is invalid: " + fields.toString();
+        model.addAttribute("errorMessage", errorMessage);
+
+        return "error.jsp";
     }
 }
