@@ -1,9 +1,11 @@
 package hu.maszeksolutions.LaptopRegistry.controller;
 
+import hu.maszeksolutions.LaptopRegistry.exceptions.LaptopAlreadyExists;
 import hu.maszeksolutions.LaptopRegistry.exceptions.LaptopNotFound;
 import hu.maszeksolutions.LaptopRegistry.model.*;
 import hu.maszeksolutions.LaptopRegistry.service.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -61,5 +63,11 @@ public class LaptopRestController
     public Laptop getLaptopBySerialNumber(@PathVariable String serialNumber) throws LaptopNotFound
     {
         return service.getLaptop(serialNumber);
+    }
+
+    @PostMapping(value = "AddLaptop", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void addLaptop(@RequestBody Laptop laptop) throws LaptopAlreadyExists
+    {
+        service.addLaptop(laptop);
     }
 }
