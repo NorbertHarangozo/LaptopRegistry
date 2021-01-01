@@ -70,4 +70,10 @@ public class LaptopRestController
     {
         service.addLaptop(laptop);
     }
+
+    @PostMapping(value = "UpdateLaptop", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void updateLaptop(@RequestBody Laptop laptop) throws LaptopNotFound
+    {
+        service.updateLaptop(laptop);
+    }
 }
