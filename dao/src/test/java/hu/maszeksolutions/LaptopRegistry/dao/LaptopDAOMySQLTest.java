@@ -63,27 +63,6 @@ public class LaptopDAOMySQLTest
         System.out.print("After deletion: " +dao.readAllLaptops());
     }
 
-    @Test
-    public void ReadLaptopsByColorTest()
-    {
-        LaptopDAO dao = new LaptopDAOMySQL();
-        System.out.print(dao.readLaptopsByColor(Color.Black));
-    }
-
-    @Test
-    public void ReadLaptopsByManufacturerTest()
-    {
-        LaptopDAO dao = new LaptopDAOMySQL();
-        System.out.print(dao.readLaptopsByManufacturer(Manufacturer.Acer));
-    }
-
-    @Test
-    public void ReadPremiumLaptopsTest()
-    {
-        LaptopDAO dao = new LaptopDAOMySQL();
-        System.out.print(dao.readPremiumLaptops());
-    }
-
     Laptop DummyLaptop() throws InvalidName, InvalidScreenSize, InvalidResolution, InvalidRefreshRate,
             InvalidCPU, InvalidMemorySize, InvalidGPU, InvalidStorageSize, InvalidUSBPortCount, InvalidManufactureDate
     {

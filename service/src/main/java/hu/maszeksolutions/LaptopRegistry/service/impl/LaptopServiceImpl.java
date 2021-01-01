@@ -3,11 +3,10 @@ package hu.maszeksolutions.LaptopRegistry.service.impl;
 import hu.maszeksolutions.LaptopRegistry.dao.LaptopDAO;
 import hu.maszeksolutions.LaptopRegistry.exceptions.LaptopAlreadyExists;
 import hu.maszeksolutions.LaptopRegistry.exceptions.LaptopNotFound;
-import hu.maszeksolutions.LaptopRegistry.model.Color;
-import hu.maszeksolutions.LaptopRegistry.model.Laptop;
-import hu.maszeksolutions.LaptopRegistry.model.Manufacturer;
+import hu.maszeksolutions.LaptopRegistry.model.*;
 import hu.maszeksolutions.LaptopRegistry.service.LaptopService;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 public class LaptopServiceImpl implements LaptopService
@@ -50,21 +49,28 @@ public class LaptopServiceImpl implements LaptopService
     }
 
     @Override
-    public Collection<Laptop> getLaptopsByColor(Color color)
-    {
-        return dao.readLaptopsByColor(color);
-    }
-
-    @Override
-    public Collection<Laptop> getLaptopsByManufacturer(Manufacturer manufacturer)
-    {
-        return dao.readLaptopsByManufacturer(manufacturer);
-    }
-
-    @Override
     public Collection<Laptop> getPremiumLaptops()
     {
-        return dao.readPremiumLaptops();
+        Collection<Laptop> laptops = dao.readLaptopsByParam(null, null, null, null,
+                                        PanelType.IPS, 1920, 1080, null, null,
+                                        null, 8192, null, StorageType.SSD, null,
+                                        null, null, null);
+
+        return laptops;
+    }
+
+    @Override
+    public Collection<Laptop> getLaptopsByParam(Manufacturer manufacturer, String name, Color color, Double screenSize,
+                                                PanelType panelType, Integer resolutionX, Integer resolutionY, Integer refreshRate,
+                                                String cpu, MemoryType memoryType, Integer memorySize, String gpu,
+                                                StorageType storageType, Integer storageSize, Boolean opticalDrive,
+                                                Integer numberOfUSBPorts, LocalDate manufactureDate)
+    {
+        Collection<Laptop> laptops = dao.readLaptopsByParam(manufacturer, name, color, screenSize, panelType,
+                                            resolutionX, resolutionY, refreshRate, cpu, memoryType, memorySize, gpu,
+                                            storageType, storageSize, opticalDrive, numberOfUSBPorts, manufactureDate);
+
+        return laptops;
     }
 
     @Override
