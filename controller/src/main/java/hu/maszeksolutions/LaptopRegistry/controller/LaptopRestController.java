@@ -5,6 +5,7 @@ import hu.maszeksolutions.LaptopRegistry.exceptions.LaptopNotFound;
 import hu.maszeksolutions.LaptopRegistry.model.*;
 import hu.maszeksolutions.LaptopRegistry.service.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -83,5 +84,19 @@ public class LaptopRestController
         Laptop laptop = service.getLaptop(serialNumber);
 
         service.removeLaptop(laptop);
+    }
+
+    @ExceptionHandler(LaptopAlreadyExists.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public String serialNumberAlreadyExists(LaptopAlreadyExists laptopAlreadyExists)
+    {
+        return "A laptop with the following serial number already exists: " + laptopAlreadyExists.getMessage();
+    }
+
+    @ExceptionHandler(LaptopNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String unknownSerialNumber(LaptopNotFound laptopNotFound)
+    {
+        return "No laptop with the following serial number can be found: " + laptopNotFound.getMessage();
     }
 }
