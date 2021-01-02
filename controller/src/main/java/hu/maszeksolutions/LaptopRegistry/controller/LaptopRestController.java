@@ -76,4 +76,12 @@ public class LaptopRestController
     {
         service.updateLaptop(laptop);
     }
+
+    @DeleteMapping(value = "DeleteLaptop/{serialNumber}")
+    public void deleteLaptop(@PathVariable String serialNumber) throws LaptopNotFound
+    {
+        Laptop laptop = service.getLaptop(serialNumber);
+
+        service.removeLaptop(laptop);
+    }
 }
