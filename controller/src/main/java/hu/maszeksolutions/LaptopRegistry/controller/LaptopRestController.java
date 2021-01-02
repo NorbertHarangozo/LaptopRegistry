@@ -86,6 +86,24 @@ public class LaptopRestController
         service.removeLaptop(laptop);
     }
 
+    @GetMapping(value = "Laptops/Premium")
+    public Collection<Laptop> getPremiumLaptops()
+    {
+        return service.getPremiumLaptops();
+    }
+
+    @GetMapping(value = "AverageMemorySize")
+    public int getAverageMemorySize()
+    {
+        return service.averageMemorySize();
+    }
+
+    @GetMapping(value = "AverageUSBPortCount")
+    public double getAverageUSBPortCount()
+    {
+        return service.averageUSBPortCount();
+    }
+
     @ExceptionHandler(LaptopAlreadyExists.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public String serialNumberAlreadyExists(LaptopAlreadyExists laptopAlreadyExists)
